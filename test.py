@@ -15,9 +15,9 @@ import tensorflow as tf
 
 from PIL import Image
 # 图像大小
-IMAGE_HEIGHT = 60
-IMAGE_WIDTH = 160
-text, image = gen_captcha_text_and_image(IMAGE_WIDTH,IMAGE_HEIGHT)
+IMAGE_HEIGHT = 30
+IMAGE_WIDTH = 30
+text, image = gen_captcha_text_and_image(IMAGE_WIDTH,IMAGE_HEIGHT,1)
 print("验证码图像channel:", image.shape)  # (60, 160, 3)
 MAX_CAPTCHA = len(text)
 print("验证码文本最长字符数", MAX_CAPTCHA)   # 验证码最长4字符; 我全部固定为4,可以不固定. 如果验证码长度小于4，用'_'补齐
@@ -206,16 +206,15 @@ def train_crack_captcha_cnn():
 
             step += 1
 
-#import matplotlib.pylab as plt
-#f = plt.figure()
-#ax = f.add_subplot(111)
-#ax.text(0.1, 0.9,text, ha='center', va='center', transform=ax.transAxes)
-##image = convert2gray(image)
-#plt.imshow(image)
-#plt.show()
-#from picPreHandle import Handle_Image1
-#image = Handle_Image1(Image.fromarray(image),IMAGE_WIDTH,IMAGE_HEIGHT)
-#
-#image = np.array(image)
-#plt.show()
-train_crack_captcha_cnn()
+import matplotlib.pylab as plt
+f = plt.figure()
+ax = f.add_subplot(111)
+ax.text(0.1, 0.9,text, ha='center', va='center', transform=ax.transAxes)
+#image = convert2gray(image)
+plt.imshow(image)
+plt.show()
+from picPreHandle import Handle_Image1
+image = Handle_Image1(Image.fromarray(image),IMAGE_WIDTH,IMAGE_HEIGHT)
+plt.imshow(image)
+plt.show()
+#train_crack_captcha_cnn()

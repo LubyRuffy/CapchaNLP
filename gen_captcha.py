@@ -24,15 +24,12 @@ def random_captcha_text(char_set=number+alphabet+ALPHABET, captcha_size=4):
     return captcha_text
 
 # 生成字符对应的验证码
-def gen_captcha_text_and_image(w,h):
-    image = ImageCaptcha(width=w,height=h)
-
-    captcha_text = random_captcha_text()
+def gen_captcha_text_and_image(w,h,length):
+    image = ImageCaptcha(width=w,height=h,font_sizes=[60])
+    captcha_text = random_captcha_text(captcha_size=length)
     captcha_text = ''.join(captcha_text)
-
     captcha = image.generate(captcha_text)
     #image.write(captcha_text, captcha_text + '.jpg')  # 写到文件
-
     captcha_image = Image.open(captcha)
     captcha_image = np.array(captcha_image)
     return captcha_text, captcha_image
@@ -41,9 +38,10 @@ if __name__ == '__main__':
     # 测试
     # 图像大小
     IMAGE_HEIGHT = 60
-    IMAGE_WIDTH = 160
-    text, image = gen_captcha_text_and_image(IMAGE_WIDTH,IMAGE_HEIGHT)
+    IMAGE_WIDTH = 60
+    text, image = gen_captcha_text_and_image(IMAGE_WIDTH,IMAGE_HEIGHT,1)
     print(image.shape)
+    print(len(number+alphabet+ALPHABET))
     f = plt.figure()
     ax = f.add_subplot(111)
     ax.text(0.1, 0.9,text, ha='center', va='center', transform=ax.transAxes)
